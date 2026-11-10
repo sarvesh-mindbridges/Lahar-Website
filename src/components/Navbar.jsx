@@ -48,8 +48,15 @@ const Navbar = () => {
     <header className={`navbar-header ${isScrolled || isMenuOpen ? 'scrolled' : 'transparent'}`}>
       <div className="container navbar-container">
         <Link to="/" className="navbar-brand">
-          <span className="brand-highlight">LAHAR</span>
-          <span className="brand-suffix">LOGISTICS</span>
+          <img 
+            src="/images/lahar-logo.png" 
+            alt="Lahar Logistics Logo" 
+            className="brand-logo-img" 
+          />
+          <div className="brand-text-wrapper">
+            <span className="brand-highlight">LAHAR</span>
+            <span className="brand-suffix">LOGISTICS</span>
+          </div>
         </Link>
 
         {/* Desktop Links */}
@@ -85,7 +92,7 @@ const Navbar = () => {
           >
             Contact Us
           </NavLink>
-          <Link to="/contact" className="btn-nav">
+          <Link to="/request-quote" className="btn-nav">
             Request a Quote
           </Link>
         </nav>
@@ -136,7 +143,7 @@ const Navbar = () => {
           >
             Contact Us
           </NavLink>
-          <Link to="/contact" className="mobile-nav-btn">
+          <Link to="/request-quote" className="mobile-nav-btn">
             Request a Quote
           </Link>
         </div>

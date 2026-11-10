@@ -1,31 +1,27 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../css files/contact.css';
 
 const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    contactPerson: '',
-    businessEmail: '',
-    companyName: '',
-    serviceRequired: 'Sea freight',
-    origin: '',
-    destination: '',
-    cargoDetails: '',
-    additionalRequirements: ''
+  const [msgSent, setMsgSent] = useState(false);
+  const [quickMsg, setQuickMsg] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
   });
 
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) => {
+  const handleMsgChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setQuickMsg((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleMsgSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setMsgSent(true);
   };
 
   return (
@@ -34,12 +30,12 @@ const ContactUs = () => {
       <section className="contact-hero-header">
         <div className="container">
           <div className="contact-header-content">
-            <span className="contact-badge-tag">CONTACT US</span>
+            <span className="contact-badge-tag">GET IN TOUCH</span>
             <h1 className="contact-main-title">
-              Let's Move Your <span className="contact-teal-accent">Business Forward.</span>
+              Contact <span className="contact-teal-accent">Lahar Logistics</span>
             </h1>
             <p className="contact-main-lead">
-              Tell us about your shipment. Our team will work with you to identify a suitable logistics solution based on your cargo, destination, and budget.
+              Our freight and supply chain specialists are here to answer your questions and assist with your logistics requirements.
             </p>
           </div>
         </div>
@@ -64,178 +60,125 @@ const ContactUs = () => {
               <div className="contact-detail-group">
                 <span className="contact-field-label">Office Address</span>
                 <p className="contact-field-value">
-                  [Registered / Corporate Office Address]
+                  N307, Casagrand Castle<br />
+                  Manapakkam<br />
+                  Chennai 600125
                 </p>
               </div>
 
               <div className="contact-detail-group">
                 <span className="contact-field-label">Email</span>
                 <p className="contact-field-value">
-                  <a href="mailto:info@laharlogistics.com">[Official Business Email]</a>
+                  <a href="mailto:Sales@laharlogistics.in">Sales@laharlogistics.in</a>
                 </p>
               </div>
 
               <div className="contact-detail-group">
                 <span className="contact-field-label">Phone</span>
                 <p className="contact-field-value">
-                  <a href="tel:+910000000000">[Business Contact Number]</a>
+                  <a href="tel:8148824099">+91 81488 24099</a>
                 </p>
               </div>
 
               <div className="contact-detail-group">
                 <span className="contact-field-label">Business Hours</span>
                 <p className="contact-field-value">
-                  [Operating Days and Hours]
+                  10:00 AM - 6:00 PM (Mon - Fri)
                 </p>
               </div>
 
               <div className="contact-info-note">
                 Our team responds to all freight inquiries, rate requests, and custom route assessments within standard business hours.
               </div>
+
+              <div style={{ marginTop: '12px' }}>
+                <Link to="/request-quote" className="btn-primary" style={{ display: 'block', textAlign: 'center' }}>
+                  Need a Shipment Rate? Request a Quote →
+                </Link>
+              </div>
             </div>
 
-            {/* Right: Request a Quote Content Prototype Form */}
+            {/* Right: Direct Message / General Inquiry Form */}
             <div className="contact-form-card">
-              {submitted ? (
+              {msgSent ? (
                 <div className="contact-success-state">
-                  <div className="contact-success-icon">📋</div>
-                  <h3 className="contact-success-title">Enquiry Draft Prepared!</h3>
+                  <div className="contact-success-icon">✉️</div>
+                  <h3 className="contact-success-title">Message Received!</h3>
                   <p className="contact-success-text">
-                    Thank you, <strong>{formData.contactPerson || 'valued client'}</strong>. Your shipment specifications for <strong>{formData.serviceRequired}</strong> from <strong>{formData.origin || 'Origin'}</strong> to <strong>{formData.destination || 'Destination'}</strong> have been recorded.
+                    Thank you, <strong>{quickMsg.name || 'valued customer'}</strong>. Your message has been sent to our team. We will get back to you shortly at <strong>{quickMsg.email}</strong>.
                   </p>
                   <button 
-                    onClick={() => setSubmitted(false)} 
+                    onClick={() => setMsgSent(false)} 
                     className="contact-submit-btn"
                   >
-                    Prepare Another Enquiry
+                    Send Another Message
                   </button>
                 </div>
               ) : (
                 <>
-                  <h2 className="contact-form-heading">Contact Lahar Logistics</h2>
+                  <h2 className="contact-form-heading">Send Us a Direct Message</h2>
                   <p className="contact-form-subheading">
-                    Use this enquiry form to share your cargo details and receive a customized logistics plan.
+                    Have general questions or need assistance? Drop us a line below.
                   </p>
 
-                  <form onSubmit={handleSubmit} className="contact-form">
+                  <form onSubmit={handleMsgSubmit} className="contact-form">
                     <div className="contact-form-row">
                       <div className="contact-form-group">
-                        <label>Contact person</label>
+                        <label>Your Name</label>
                         <input 
                           type="text" 
-                          name="contactPerson" 
+                          name="name" 
                           required 
-                          value={formData.contactPerson}
-                          onChange={handleChange}
-                          placeholder="Your Name" 
+                          value={quickMsg.name}
+                          onChange={handleMsgChange}
+                          placeholder="Full Name" 
                           className="contact-input"
                         />
                       </div>
                       <div className="contact-form-group">
-                        <label>Business email</label>
+                        <label>Email Address</label>
                         <input 
                           type="email" 
-                          name="businessEmail" 
+                          name="email" 
                           required 
-                          value={formData.businessEmail}
-                          onChange={handleChange}
-                          placeholder="name@company.com" 
-                          className="contact-input"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="contact-form-row">
-                      <div className="contact-form-group">
-                        <label>Company name</label>
-                        <input 
-                          type="text" 
-                          name="companyName" 
-                          value={formData.companyName}
-                          onChange={handleChange}
-                          placeholder="Organization / Company" 
-                          className="contact-input"
-                        />
-                      </div>
-                      <div className="contact-form-group">
-                        <label>Service required</label>
-                        <select 
-                          name="serviceRequired" 
-                          value={formData.serviceRequired}
-                          onChange={handleChange}
-                          className="contact-select"
-                        >
-                          <option value="Sea freight">Sea freight</option>
-                          <option value="Air freight">Air freight</option>
-                          <option value="Customs clearance">Customs clearance</option>
-                          <option value="Freight forwarding">Freight forwarding</option>
-                          <option value="Road transportation">Road transportation</option>
-                          <option value="Warehousing">Warehousing</option>
-                          <option value="Project cargo">Project cargo</option>
-                          <option value="End-to-end logistics">End-to-end logistics</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="contact-form-row">
-                      <div className="contact-form-group">
-                        <label>Origin</label>
-                        <input 
-                          type="text" 
-                          name="origin" 
-                          required 
-                          value={formData.origin}
-                          onChange={handleChange}
-                          placeholder="City, Port, or Country" 
-                          className="contact-input"
-                        />
-                      </div>
-                      <div className="contact-form-group">
-                        <label>Destination</label>
-                        <input 
-                          type="text" 
-                          name="destination" 
-                          required 
-                          value={formData.destination}
-                          onChange={handleChange}
-                          placeholder="City, Port, or Country" 
+                          value={quickMsg.email}
+                          onChange={handleMsgChange}
+                          placeholder="name@example.com" 
                           className="contact-input"
                         />
                       </div>
                     </div>
 
                     <div className="contact-form-group">
-                      <label>Cargo details</label>
-                      <textarea 
-                        name="cargoDetails" 
-                        rows={3} 
-                        value={formData.cargoDetails}
-                        onChange={handleChange}
-                        placeholder="Commodity type, weight, dimensions, container volume..." 
-                        className="contact-textarea"
+                      <label>Subject</label>
+                      <input 
+                        type="text" 
+                        name="subject" 
+                        required 
+                        value={quickMsg.subject}
+                        onChange={handleMsgChange}
+                        placeholder="Inquiry Subject" 
+                        className="contact-input"
                       />
                     </div>
 
                     <div className="contact-form-group">
-                      <label>Additional requirements</label>
+                      <label>Your Message</label>
                       <textarea 
-                        name="additionalRequirements" 
-                        rows={2} 
-                        value={formData.additionalRequirements}
-                        onChange={handleChange}
-                        placeholder="Target delivery dates, customs assistance, temperature control..." 
+                        name="message" 
+                        rows={4} 
+                        required
+                        value={quickMsg.message}
+                        onChange={handleMsgChange}
+                        placeholder="How can we assist your business today?" 
                         className="contact-textarea"
                       />
                     </div>
 
                     <button type="submit" className="contact-submit-btn">
-                      Prepare Enquiry Draft
+                      Send Message
                     </button>
                   </form>
-
-                  <p className="contact-prototype-notice">
-                    The form above is a content prototype. The live website will connect this form to the company's designated email, CRM, or enquiry management system with an appropriate privacy notice.
-                  </p>
                 </>
               )}
             </div>

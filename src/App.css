@@ -54,6 +54,26 @@ main {
   letter-spacing: 1.5px;
   display: flex;
   align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover .brand-logo-img {
+  transform: rotate(6deg) scale(1.06);
+}
+
+.brand-text-wrapper {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
@@ -118,7 +138,7 @@ main {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: url('/images/sea-freight.jpg') center/cover no-repeat;
+  background: url('/images/home-image.png') center/cover no-repeat;
   filter: contrast(1.05) saturate(1.15);
 }
 
@@ -603,23 +623,166 @@ main {
   box-shadow: 0 6px 26px rgba(56, 189, 248, 0.45);
 }
 
-/* Footer */
-.footer-section {
+/* Modern Multi-Column Footer */
+.site-footer {
   background: #030a14;
-  padding: 36px 0;
-  border-top: 1px solid rgba(56, 189, 248, 0.1);
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+  margin-top: auto;
 }
 
-.footer-content {
-  text-align: center;
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.2fr;
+  gap: 50px;
+  padding: 65px 0 50px 0;
+}
+
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.footer-company-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-sky);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer-tagline {
   color: var(--color-muted);
+  font-size: 14.5px;
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.footer-col-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-col-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 28px;
+  height: 2px;
+  background-color: var(--color-sky);
+  border-radius: 2px;
+}
+
+.footer-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  color: #A0B2C6;
+  font-size: 14.5px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  color: var(--color-sky);
+  transform: translateX(4px);
+}
+
+.footer-cta-link {
+  color: var(--color-sky);
+  font-weight: 600;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #A0B2C6;
+  font-size: 14.5px;
+}
+
+.footer-icon {
+  color: var(--color-sky);
   font-size: 14px;
 }
 
-.footer-subtext {
-  margin-top: 8px;
-  font-size: 12.5px;
+/* Footer Bottom Copyright Bar */
+.footer-bottom-bar {
+  border-top: 1px solid rgba(56, 189, 248, 0.1);
+  background: rgba(2, 6, 12, 0.8);
+  padding: 22px 0;
+}
+
+.footer-bottom-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copyright {
   color: #64748B;
+  font-size: 13px;
+  margin: 0;
+}
+
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-legal-link {
+  color: #64748B;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  color: var(--color-sky);
+}
+
+.footer-divider {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .footer-main-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 45px 0 35px 0;
+  }
+  .footer-bottom-container {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 /* Hamburger Button (Mobile Only) */

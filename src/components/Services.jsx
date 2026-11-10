@@ -21,7 +21,7 @@ const Services = () => {
       id: 'air-freight',
       title: 'Air Freight',
       lead: 'Air cargo solutions for time-sensitive or high-priority shipments, with options selected according to route, cargo specifications, and budget.',
-      image: '/images/air-freight.jpg',
+      image: '/images/air-freight-2.jpg',
       tag: 'Express Air',
       points: [
         'Import and export air cargo coordination',
@@ -87,7 +87,7 @@ const Services = () => {
       id: 'project-cargo',
       title: 'Project Cargo',
       lead: 'Logistics planning for heavy, oversized, specialised, or non-standard cargo requiring additional coordination.',
-      image: '/images/sea-freight-2.jpg',
+      image: '/images/project-cargo.png',
       tag: 'Specialised Cargo',
       points: [
         'Cargo requirement assessment',
@@ -100,7 +100,7 @@ const Services = () => {
       id: 'end-to-end',
       title: 'End-to-End Logistics',
       lead: 'An integrated approach that coordinates multiple logistics activities under one shipment plan, reducing the burden of managing disconnected service providers.',
-      image: '/images/air-freight-2.jpg',
+      image: '/images/endtoend.jpeg',
       tag: 'Integrated Turnkey',
       points: [
         'Freight and transportation coordination',
