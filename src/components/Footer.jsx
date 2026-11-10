@@ -66,7 +66,7 @@ const Footer = () => {
               <Link to="/contact" onClick={scrollToTop} className="footer-link">Contact Us</Link>
             </li>
             <li>
-              <Link to="/contact" onClick={scrollToTop} className="footer-link footer-cta-link">Request a Quote</Link>
+              <Link to="/request-quote" onClick={scrollToTop} className="footer-link footer-cta-link">Request a Quote</Link>
             </li>
             <li className="footer-contact-item">
               <span className="footer-icon">✉</span>

@@ -65,7 +65,7 @@ const RequestQuote = () => {
               </div>
             ) : (
               <>
-                <h2 className="contact-form-heading">Contact Lahar Logistics</h2>
+                <h2 className="contact-form-heading">Request A Quote</h2>
                 <p className="contact-form-subheading">
                   Use this enquiry form to share your cargo details and receive a customized logistics plan.
                 </p>
