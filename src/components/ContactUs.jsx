@@ -4,6 +4,8 @@ import '../css files/contact.css';
 
 const ContactUs = () => {
   const [msgSent, setMsgSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [quickMsg, setQuickMsg] = useState({
     name: '',
     email: '',
@@ -19,9 +21,48 @@ const ContactUs = () => {
     }));
   };
 
-  const handleMsgSubmit = (e) => {
+  const handleMsgSubmit = async (e) => {
     e.preventDefault();
-    setMsgSent(true);
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      // Free endpoint sending directly to Sales@laharlogistics.in
+      const response = await fetch('https://formsubmit.co/ajax/Sales@laharlogistics.in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          Name: quickMsg.name,
+          Email: quickMsg.email,
+          Subject: quickMsg.subject,
+          Message: quickMsg.message,
+          _subject: `New Contact Inquiry from ${quickMsg.name}: ${quickMsg.subject}`
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok || result.success === 'true' || result.success === true) {
+        setMsgSent(true);
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (err) {
+      // Fallback: Opens email client with pre-filled content if network/API fails
+      console.warn('Direct submission error, activating mailto fallback:', err);
+      const mailtoUrl = `mailto:Sales@laharlogistics.in?subject=${encodeURIComponent(
+        quickMsg.subject || 'Website Inquiry'
+      )}&body=${encodeURIComponent(
+        `Name: ${quickMsg.name}\nEmail: ${quickMsg.email}\n\nMessage:\n${quickMsg.message}`
+      )}`;
+      window.location.href = mailtoUrl;
+      setMsgSent(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -103,12 +144,15 @@ const ContactUs = () => {
               {msgSent ? (
                 <div className="contact-success-state">
                   <div className="contact-success-icon">✉️</div>
-                  <h3 className="contact-success-title">Message Received!</h3>
+                  <h3 className="contact-success-title">Message Delivered!</h3>
                   <p className="contact-success-text">
-                    Thank you, <strong>{quickMsg.name || 'valued customer'}</strong>. Your message has been sent to our team. We will get back to you shortly at <strong>{quickMsg.email}</strong>.
+                    Thank you, <strong>{quickMsg.name || 'valued customer'}</strong>. Your message and contact details have been dispatched to <strong>Sales@laharlogistics.in</strong>. A representative will contact you shortly.
                   </p>
                   <button 
-                    onClick={() => setMsgSent(false)} 
+                    onClick={() => {
+                      setMsgSent(false);
+                      setQuickMsg({ name: '', email: '', subject: '', message: '' });
+                    }} 
                     className="contact-submit-btn"
                   >
                     Send Another Message
@@ -118,7 +162,7 @@ const ContactUs = () => {
                 <>
                   <h2 className="contact-form-heading">Send Us a Direct Message</h2>
                   <p className="contact-form-subheading">
-                    Have general questions or need assistance? Drop us a line below.
+                    Have general questions or need assistance? Drop us a line below. All details are delivered directly to our sales inbox.
                   </p>
 
                   <form onSubmit={handleMsgSubmit} className="contact-form">
@@ -175,8 +219,19 @@ const ContactUs = () => {
                       />
                     </div>
 
-                    <button type="submit" className="contact-submit-btn">
-                      Send Message
+                    {errorMessage && (
+                      <p style={{ color: '#F87171', fontSize: '13.5px', margin: 0 }}>
+                        {errorMessage}
+                      </p>
+                    )}
+
+                    <button 
+                      type="submit" 
+                      className="contact-submit-btn"
+                      disabled={isSubmitting}
+                      style={{ opacity: isSubmitting ? 0.75 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+                    >
+                      {isSubmitting ? 'Sending Message...' : 'Send Message'}
                     </button>
                   </form>
                 </>

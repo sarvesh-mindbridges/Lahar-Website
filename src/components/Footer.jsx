@@ -19,7 +19,7 @@ const Footer = () => {
         <div className="footer-brand-col">
           <Link to="/" onClick={scrollToTop} className="footer-brand" style={{ textDecoration: 'none' }}>
             <img 
-              src="/images/lahar-logo.png" 
+              src="/images/logo-updated.png" 
               alt="Lahar Logistics Logo" 
               className="brand-logo-img" 
             />

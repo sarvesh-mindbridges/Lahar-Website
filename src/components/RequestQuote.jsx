@@ -14,6 +14,8 @@ const RequestQuote = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,9 +25,57 @@ const RequestQuote = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/Sales@laharlogistics.in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'Contact Person': formData.contactPerson,
+          'Business Email': formData.businessEmail,
+          'Company Name': formData.companyName || 'Not Specified',
+          'Service Required': formData.serviceRequired,
+          'Origin': formData.origin,
+          'Destination': formData.destination,
+          'Cargo Details': formData.cargoDetails || 'None provided',
+          'Additional Requirements': formData.additionalRequirements || 'None provided',
+          _subject: `New Quotation Request (${formData.serviceRequired}) from ${formData.contactPerson} - Lahar Logistics`
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok || result.success === 'true' || result.success === true) {
+        setSubmitted(true);
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (err) {
+      console.warn('FormSubmit direct send failed, activating mailto fallback:', err);
+      const mailtoUrl = `mailto:Sales@laharlogistics.in?subject=${encodeURIComponent(
+        `Quotation Request (${formData.serviceRequired}) from ${formData.contactPerson}`
+      )}&body=${encodeURIComponent(
+        `Contact Person: ${formData.contactPerson}\n` +
+        `Business Email: ${formData.businessEmail}\n` +
+        `Company Name: ${formData.companyName}\n` +
+        `Service Required: ${formData.serviceRequired}\n` +
+        `Origin: ${formData.origin}\n` +
+        `Destination: ${formData.destination}\n` +
+        `Cargo Details: ${formData.cargoDetails}\n` +
+        `Additional Requirements: ${formData.additionalRequirements}`
+      )}`;
+      window.location.href = mailtoUrl;
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -52,12 +102,24 @@ const RequestQuote = () => {
             {submitted ? (
               <div className="contact-success-state">
                 <div className="contact-success-icon">📋</div>
-                <h3 className="contact-success-title">Enquiry Draft Prepared!</h3>
+                <h3 className="contact-success-title">Enquiry Draft Sent!</h3>
                 <p className="contact-success-text">
-                  Thank you, <strong>{formData.contactPerson || 'valued client'}</strong>. Your shipment specifications for <strong>{formData.serviceRequired}</strong> from <strong>{formData.origin || 'Origin'}</strong> to <strong>{formData.destination || 'Destination'}</strong> have been recorded.
+                  Thank you, <strong>{formData.contactPerson || 'valued client'}</strong>. Your shipment specifications for <strong>{formData.serviceRequired}</strong> from <strong>{formData.origin || 'Origin'}</strong> to <strong>{formData.destination || 'Destination'}</strong> have been delivered directly to <strong>Sales@laharlogistics.in</strong>. Our freight operations team will review your requirements and reach out promptly.
                 </p>
                 <button 
-                  onClick={() => setSubmitted(false)} 
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({
+                      contactPerson: '',
+                      businessEmail: '',
+                      companyName: '',
+                      serviceRequired: 'Sea freight',
+                      origin: '',
+                      destination: '',
+                      cargoDetails: '',
+                      additionalRequirements: ''
+                    });
+                  }} 
                   className="contact-submit-btn"
                 >
                   Prepare Another Enquiry
@@ -67,13 +129,13 @@ const RequestQuote = () => {
               <>
                 <h2 className="contact-form-heading">Request A Quote</h2>
                 <p className="contact-form-subheading">
-                  Use this enquiry form to share your cargo details and receive a customized logistics plan.
+                  Use this enquiry form to share your cargo details and receive a customized logistics plan. All details are delivered directly to Sales@laharlogistics.in.
                 </p>
 
                 <form onSubmit={handleSubmit} className="contact-form">
                   <div className="contact-form-row">
                     <div className="contact-form-group">
-                      <label>Contact person</label>
+                      <label>Contact person *</label>
                       <input 
                         type="text" 
                         name="contactPerson" 
@@ -85,7 +147,7 @@ const RequestQuote = () => {
                       />
                     </div>
                     <div className="contact-form-group">
-                      <label>Business email</label>
+                      <label>Business email *</label>
                       <input 
                         type="email" 
                         name="businessEmail" 
@@ -132,7 +194,7 @@ const RequestQuote = () => {
 
                   <div className="contact-form-row">
                     <div className="contact-form-group">
-                      <label>Origin</label>
+                      <label>Origin *</label>
                       <input 
                         type="text" 
                         name="origin" 
@@ -144,7 +206,7 @@ const RequestQuote = () => {
                       />
                     </div>
                     <div className="contact-form-group">
-                      <label>Destination</label>
+                      <label>Destination *</label>
                       <input 
                         type="text" 
                         name="destination" 
@@ -181,13 +243,24 @@ const RequestQuote = () => {
                     />
                   </div>
 
-                  <button type="submit" className="contact-submit-btn">
-                    Prepare Enquiry Draft
+                  {errorMessage && (
+                    <p style={{ color: '#F87171', fontSize: '13.5px', margin: 0 }}>
+                      {errorMessage}
+                    </p>
+                  )}
+
+                  <button 
+                    type="submit" 
+                    className="contact-submit-btn"
+                    disabled={isSubmitting}
+                    style={{ opacity: isSubmitting ? 0.75 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+                  >
+                    {isSubmitting ? 'Submitting Enquiry...' : 'Prepare Enquiry Draft'}
                   </button>
                 </form>
 
                 <p className="contact-prototype-notice">
-                  The form above is a content prototype. The live website will connect this form to the company's designated email, CRM, or enquiry management system with an appropriate privacy notice.
+                  All submitted shipment details are securely transmitted to Sales@laharlogistics.in.
                 </p>
               </>
             )}

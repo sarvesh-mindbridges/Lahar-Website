@@ -6,7 +6,7 @@ const Home = () => {
     {
       title: 'Sea Freight',
       description: 'Cost-conscious ocean shipping solutions for international cargo movements, subject to route and service availability.',
-      image: '/images/sea-freight.jpg',
+      image: '/images/sea-freight-home.jpeg',
       tag: 'Global Maritime'
     },
     {
