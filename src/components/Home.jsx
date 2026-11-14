@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const services = [
@@ -12,7 +13,8 @@ const Home = () => {
     {
       title: 'Air Freight',
       description: 'Air cargo coordination for shipments where transit time and scheduling are important.',
-      image: '/images/air-freight.jpg',
+      image: '/images/air-freight-home.png',
+      imageClass: 'service-img-full',
       tag: 'Express Air'
     },
     {
@@ -67,13 +69,13 @@ const Home = () => {
             <div className="overview-text">
               <span className="section-label">Integrated logistics. Simplified.</span>
               <h2 className="section-heading">Moving cargo with precision and care.</h2>
-              <p className="about-lead-text">
+              <p className="section-description">
                 At Lahar Integrated Logistics, we understand that shipping is more than moving cargo from one place to another. It is about protecting business commitments, managing costs, coordinating multiple processes, and ensuring goods move through the supply chain as efficiently as possible.
               </p>
-              <p className="about-lead-text">
+              <p className="section-description">
                 We offer integrated logistics services spanning sea freight, air freight, customs clearance, freight forwarding, transportation, warehousing, documentation, and project cargo coordination.
               </p>
-              <p className="about-lead-text">
+              <p className="section-description">
                 Whether you are a growing business entering international markets or an established enterprise managing complex supply chains, our approach is built around your requirements.
               </p>
 
@@ -85,7 +87,13 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="overview-visual">
+            <motion.div 
+              className="overview-visual"
+              initial={{ opacity: 0, x: 80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div className="image-frame">
                 <img 
                   src="/images/sea-freight.jpg" 
@@ -97,27 +105,51 @@ const Home = () => {
                   <span className="badge-text">Commitment to Reliability</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section with Framer Motion scroll animations */}
       <section id="services" className="services-section section-padding">
         <div className="container">
-          <div className="section-header-center">
-      
+          <motion.div 
+            className="section-header-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
             <h2 className="section-heading">Our Services at a Glance</h2>
             <p className="section-description centered">
               End-to-end logistics solutions tailored to deliver efficiency across every link of your supply chain.
             </p>
-          </div>
+          </motion.div>
 
           <div className="services-grid">
             {services.map((service, index) => (
-              <div key={index} className="service-card">
+              <motion.div 
+                key={index} 
+                className="service-card"
+                initial={{ opacity: 0, y: 45, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ 
+                  duration: 0.65, 
+                  delay: (index % 3) * 0.12,
+                  ease: [0.25, 0.1, 0.25, 1] 
+                }}
+                whileHover={{ 
+                  y: -8, 
+                  transition: { duration: 0.25, ease: 'easeOut' } 
+                }}
+              >
                 <div className="service-img-wrapper">
-                  <img src={service.image} alt={service.title} className="service-img" />
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className={`service-img ${service.imageClass || ''}`}
+                  />
                   <span className="service-tag">{service.tag}</span>
                 </div>
                 <div className="service-body">
@@ -134,7 +166,7 @@ const Home = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

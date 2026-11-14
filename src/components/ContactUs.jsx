@@ -28,7 +28,7 @@ const ContactUs = () => {
 
     try {
       // Free endpoint sending directly to Sales@laharlogistics.in
-      const response = await fetch('https://formsubmit.co/ajax/Sales@laharlogistics.in', {
+      const response = await fetch('https://formsubmit.co/ajax/sarvesh2023abc.com@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
