@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const AboutUs = () => {
   const coreValues = [
@@ -81,7 +82,14 @@ const AboutUs = () => {
         <div className="container">
           <div className="vision-mission-grid">
             {/* Vision */}
-            <div className="service-card vision-card">
+            <motion.div 
+              className="service-card vision-card"
+              initial={{ opacity: 0, x: -40, y: 20 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+            >
               <span className="section-label">Strategic Direction</span>
               <h2 className="service-title" style={{ fontSize: '26px', color: 'var(--color-sky)', marginBottom: '14px' }}>
                 Our Vision
@@ -89,10 +97,17 @@ const AboutUs = () => {
               <p className="service-description" style={{ fontSize: '16px', lineHeight: '1.8', color: 'var(--color-text)' }}>
                 To be a trusted logistics partner recognised for reliability, customer focus, operational efficiency, and value-driven supply chain solutions.
               </p>
-            </div>
+            </motion.div>
 
             {/* Mission */}
-            <div className="service-card vision-card">
+            <motion.div 
+              className="service-card vision-card"
+              initial={{ opacity: 0, x: 40, y: 20 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+            >
               <span className="section-label">Core Purpose</span>
               <h2 className="service-title" style={{ fontSize: '26px', color: 'var(--color-sky)', marginBottom: '14px' }}>
                 Our Mission
@@ -100,7 +115,7 @@ const AboutUs = () => {
               <p className="service-description" style={{ fontSize: '16px', lineHeight: '1.8', color: 'var(--color-text)' }}>
                 To simplify cargo movement by providing coordinated logistics services, responsive communication, and cost-conscious solutions aligned with our customers' business needs.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -118,14 +133,26 @@ const AboutUs = () => {
 
           <div className="values-grid">
             {coreValues.map((val, idx) => (
-              <div key={idx} className="service-card value-card">
+              <motion.div 
+                key={idx} 
+                className="service-card value-card"
+                initial={{ opacity: 0, x: -60, rotateY: -15 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ 
+                  duration: 0.65, 
+                  delay: idx * 0.15, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              >
                 <h3 className="service-title" style={{ fontSize: '19px', color: 'var(--color-white)', marginBottom: '12px' }}>
                   {val.title}
                 </h3>
                 <p className="service-description" style={{ fontSize: '15px', lineHeight: '1.6' }}>
                   {val.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
