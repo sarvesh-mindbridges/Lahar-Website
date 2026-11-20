@@ -41,6 +41,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 90px;
+  background-color: #0D2947;
+  overscroll-behavior: none;
 }
 
 body {
@@ -56,6 +58,7 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
 button,

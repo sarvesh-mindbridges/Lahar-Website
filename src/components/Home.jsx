@@ -131,8 +131,8 @@ const Home = () => {
               <motion.div 
                 key={index} 
                 className="service-card"
-                initial={{ opacity: 0, y: 45, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 45 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ 
                   duration: 0.65, 

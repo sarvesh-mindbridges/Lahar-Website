@@ -31,7 +31,7 @@ const RequestQuote = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/Sales@laharlogistics.in', {
+      const response = await fetch('https://formsubmit.co/ajax/sales@laharlogistics.in', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const RequestQuote = () => {
       }
     } catch (err) {
       console.warn('FormSubmit direct send failed, activating mailto fallback:', err);
-      const mailtoUrl = `mailto:Sales@laharlogistics.in?subject=${encodeURIComponent(
+      const mailtoUrl = `mailto:sales@laharlogistics.in?subject=${encodeURIComponent(
         `Quotation Request (${formData.serviceRequired}) from ${formData.contactPerson}`
       )}&body=${encodeURIComponent(
         `Contact Person: ${formData.contactPerson}\n` +
