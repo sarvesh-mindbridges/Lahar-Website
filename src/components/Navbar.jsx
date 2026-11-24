@@ -49,7 +49,7 @@ const Navbar = () => {
       <div className="container navbar-container">
         <Link to="/" className="navbar-brand">
           <img 
-            src="/images/logo-updated.png" 
+            src="/images/new-logo.png" 
             alt="Lahar Logistics Logo" 
             className="brand-logo-img" 
           />

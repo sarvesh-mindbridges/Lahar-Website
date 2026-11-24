@@ -124,7 +124,7 @@ const ContactUs = () => {
               <div className="contact-detail-group">
                 <span className="contact-field-label">Business Hours</span>
                 <p className="contact-field-value">
-                  10:00 AM - 6:00 PM (Mon - Fri)
+                  9 AM - 6 PM  (Mon - Fri)
                 </p>
               </div>
 
