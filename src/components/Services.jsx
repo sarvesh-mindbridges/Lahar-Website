@@ -8,7 +8,7 @@ const Services = () => {
       id: 'sea-freight',
       title: 'Sea Freight',
       lead: 'A practical option for international cargo where shipment volume, freight economics, and delivery schedules must be considered together.',
-      image: '/images/sea-freight.jpeg',
+      image: '/images/original-sea-freight.png',
       tag: 'Ocean Cargo',
       points: [
         'Full Container Load (FCL) coordination',
